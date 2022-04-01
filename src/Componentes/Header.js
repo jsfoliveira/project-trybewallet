@@ -24,6 +24,12 @@ class Header extends React.Component {
         >
           BRL
         </p>
+        <button
+          type="submit"
+          onClick={ this.onClick }
+        >
+          Adicionar despesa
+        </button>
       </header>
     );
   }
