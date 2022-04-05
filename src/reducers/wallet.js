@@ -23,10 +23,10 @@ const wallet = (state = INITIAL_STATE, action) => {
       isFetching: false,
       error: action.error,
     };
-  case 'EXPENSES':
+  case 'SAVE_EXPENSE':
     return {
       ...state,
-      expenses: action.expenses,
+      expenses: [...state.expenses, action.expenses],
     };
   default:
     return state;
