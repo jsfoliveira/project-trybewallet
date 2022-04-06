@@ -58,9 +58,18 @@ handleClick = () => {
   });
 }
 
+calculation = () => {
+  const { expenses } = this.props;
+  // pra usar reducer precisa transformar a string em número. o ask é o câmbio da moeda.
+  return expenses
+    .reduce((total, valor) => total
+  + parseFloat(valor.value)
+  * parseFloat(valor.exchangeRates[valor.currency].ask), 0);
+}
+
 render() {
-  const { email, currencies, expenses } = this.props;
-  console.log(this.props.expenses); // FALTA CONEGUIR PASSAR O EXPENSE PARA FAZER O CÁLCULOcd ..
+  const { email, currencies } = this.props;
+  // console.log(expenses); // FALTA CONEGUIR PASSAR O EXPENSE PARA FAZER O CÁLCULOcd ..
   const { valueExpense,
     descriptionExpense,
     currencyExpense,
@@ -80,6 +89,7 @@ render() {
         >
           Despesas
           0
+          { this.calculation }
         </p>
         <p
           data-testid="header-currency-field"
