@@ -4,15 +4,16 @@ import { connect } from 'react-redux';
 import { fetchCurrent, fetchRate } from '../actions/index';
 import Table from '../Componentes/Table';
 
+const alimentacao = 'Alimentação';
 class Wallet extends React.Component {
   constructor() {
     super();
     this.state = {
       valueExpense: 0,
       descriptionExpense: '',
-      currencyExpense: '',
-      methodExpense: '',
-      tagExpense: '',
+      currencyExpense: 'USD',
+      methodExpense: 'Dinheiro',
+      tagExpense: alimentacao,
     };
   }
 
@@ -52,24 +53,32 @@ handleClick = () => {
   this.setState({
     valueExpense: 0,
     descriptionExpense: '',
-    currencyExpense: '',
-    methodExpense: '',
-    tagExpense: '',
+    currencyExpense: 'USD',
+    methodExpense: 'Dinheiro',
+    tagExpense: alimentacao,
   });
 }
 
 calculation = () => {
   const { expenses } = this.props;
   // pra usar reducer precisa transformar a string em número. o ask é o câmbio da moeda.
+  console.log(expenses);
+  if (expenses.length === 0) {
+    return 0;
+  }
   return expenses
-    .reduce((total, valor) => total
-  + parseFloat(valor.value)
-  * parseFloat(valor.exchangeRates[valor.currency].ask), 0);
+    .reduce((total, valor) => {
+      total
+  += Number(valor.value)
+  * Number(valor.exchangeRates[valor.currency].ask);
+      return total;
+    }, 0).toFixed(2);
 }
 
 render() {
   const { email, currencies } = this.props;
-  // console.log(expenses); // FALTA CONEGUIR PASSAR O EXPENSE PARA FAZER O CÁLCULOcd ..
+  // console.log(this.props.expenses);
+  // FALTA CONEGUIR PASSAR O EXPENSE PARA FAZER O CÁLCULO
   const { valueExpense,
     descriptionExpense,
     currencyExpense,
@@ -87,9 +96,7 @@ render() {
         <p
           data-testid="total-field"
         >
-          Despesas
-          0
-          { this.calculation }
+          { this.calculation() }
         </p>
         <p
           data-testid="header-currency-field"
@@ -142,7 +149,7 @@ render() {
         </label>
 
         <label
-          htmlFor="methodInput"
+          htmlFor="methodExpenset"
         >
           <select
             id="methodExpenset"
