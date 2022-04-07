@@ -41,6 +41,7 @@ handleClick = () => {
     methodExpense,
     tagExpense,
   } = this.state;
+  // para criar o id de acordo com o tamanho do expense.
   const expense = {
     id: expenses.length,
     value: valueExpense,
@@ -61,8 +62,7 @@ handleClick = () => {
 
 calculation = () => {
   const { expenses } = this.props;
-  // pra usar reducer precisa transformar a string em número. o ask é o câmbio da moeda.
-  console.log(expenses);
+  // pra usar reducer precisa transformar a string em número. o ask é o câmbio da moeda. o return do total vai gerar um valor com várias casa decimais, preciso arredondar pra 2 com toFixed.s
   if (expenses.length === 0) {
     return 0;
   }
@@ -71,6 +71,8 @@ calculation = () => {
       total
   += Number(valor.value)
   * Number(valor.exchangeRates[valor.currency].ask);
+      // console.log(total);
+      // console.log(valor.exchangeRates);
       return total;
     }, 0).toFixed(2);
 }
@@ -78,7 +80,6 @@ calculation = () => {
 render() {
   const { email, currencies } = this.props;
   // console.log(this.props.expenses);
-  // FALTA CONEGUIR PASSAR O EXPENSE PARA FAZER O CÁLCULO
   const { valueExpense,
     descriptionExpense,
     currencyExpense,

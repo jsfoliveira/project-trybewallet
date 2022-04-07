@@ -5,6 +5,7 @@ export const REQUEST = 'REQUEST';
 export const GET_CURRENCIES_ACTION = 'GET_CURRENCIES_ACTION';
 export const GET_API_FAIL_ACTION = 'GET_API_FAIL_ACTION';
 export const SAVE_EXPENSE = 'SAVE_EXPENSE';
+export const EDIT_EXPENSE = 'EDIT_EXPENSE';
 
 // Action que retorna o seu type e o email.
 export function emailAction(email) {
@@ -37,6 +38,13 @@ export function saveExpenseAction(value, exchangeRates) {
     type: SAVE_EXPENSE,
     // expenses: { exchangeRato, ...value },
     expenses: { ...value, exchangeRates },
+  };
+}
+// Action editar despesas.
+export function editExpenseAction(expense) {
+  return {
+    type: EDIT_EXPENSE,
+    expense,
   };
 }
 
